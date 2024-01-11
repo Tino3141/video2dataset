@@ -47,6 +47,7 @@ class DownloadWorker:
         tmp_dir,
         encode_formats,
         config,
+        proxy = None
     ) -> None:
         self.sample_writer_class = sample_writer_class
         self.save_caption = save_caption
@@ -54,8 +55,10 @@ class DownloadWorker:
         self.column_list = column_list
         self.encode_formats = encode_formats
         self.config = config
-
-        self.data_reader = VideoDataReader(encode_formats, tmp_dir, config["reading"])
+        if proxy is not None:
+            self.data_reader = VideoDataReader(encode_formats, tmp_dir, config["reading"], proxy)
+        else:
+            self.data_reader = VideoDataReader(encode_formats, tmp_dir, config["reading"])
 
         self.clipping_subsampler = ClippingSubsampler(
             5,  # oom_clip_count

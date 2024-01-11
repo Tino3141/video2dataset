@@ -54,6 +54,7 @@ def video2dataset(
     max_shard_retry: int = 1,
     tmp_dir: str = "/tmp",
     config: Any = "default",
+    proxy: Optional[str] = None
 ):
     """
     Create datasets from video/audio links
@@ -216,6 +217,7 @@ def video2dataset(
             tmp_dir=tmp_dir,
             encode_formats=encode_formats,
             config=config,
+            proxy=proxy
         )
     elif stage == "subset":
         worker = SubsetWorker(  # type: ignore
